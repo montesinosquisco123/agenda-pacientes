@@ -1,0 +1,27 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Editar paciente{% endblock %}
+
+{% block content %}
+<h2 class="text-primary mb-4">Editar paciente</h2>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+    {{ form.errors }}
+</div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">
+        Guardar cambios
+    </button>
+
+    <a href="{% url 'listar_pacientes' %}" class="btn btn-secondary">
+        Cancelar
+    </a>
+</form>
+{% endblock %}

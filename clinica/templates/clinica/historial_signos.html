@@ -1,0 +1,60 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Historial{% endblock %}
+
+{% block content %}
+<h2 class="text-primary mb-4">Historial de signos de {{ paciente.nombre }}</h2>
+
+<a href="{% url 'registrar_signos' paciente.id %}" class="btn btn-success mb-3">
+    + Agregar signos
+</a>
+
+<table class="table table-bordered table-hover bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>Presión</th>
+            <th>PAM</th>
+            <th>FC</th>
+            <th>FR</th>
+            <th>SpO₂</th>
+            <th>Oxígeno</th>
+            <th>Fecha</th>
+            <th>Registrado por</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for s in signos %}
+        <tr>
+            <td>{{ s.presion_arterial }}</td>
+            <td>{{ s.pam }}</td>
+            <td>{{ s.frecuencia_cardiaca }}</td>
+            <td>{{ s.frecuencia_respiratoria }}</td>
+            <td>{{ s.spo2 }}</td>
+            <td>{{ s.oxigeno_apoyo }}</td>
+            <td>{{ s.fecha_hora }}</td>
+            <td>{{ s.registrado_por.username }}</td>
+
+            <td>
+                <a href="{% url 'editar_signo' s.id %}" class="btn btn-warning btn-sm">
+                    Editar
+                </a>
+
+                <a href="{% url 'eliminar_signo' s.id %}"
+                   onclick="return confirm('¿Eliminar este registro?')"
+                   class="btn btn-danger btn-sm">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="9" class="text-center">Sin registros aún.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

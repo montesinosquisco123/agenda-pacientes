@@ -1,0 +1,16 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Editar Signo{% endblock %}
+
+{% block content %}
+<h2 class="text-primary mb-4">Editar signos de {{ signo.paciente.nombre }}</h2>
+
+<form method="POST" class="card p-4 shadow">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+    <a href="{% url 'ver_signos' signo.paciente.id %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+{% endblock %}

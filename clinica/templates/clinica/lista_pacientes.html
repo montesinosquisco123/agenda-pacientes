@@ -1,0 +1,36 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Pacientes{% endblock %}
+
+{% block content %}
+<h2 class="text-primary mb-4">Pacientes registrados</h2>
+
+<a href="{% url 'crear_paciente' %}" class="btn btn-success mb-3">+ Agregar paciente</a>
+
+<table class="table table-bordered table-hover bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>Nombre</th>
+            <th>RUT</th>
+            <th>Habitación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in pacientes %}
+        <tr>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.rut }}</td>
+            <td>{{ p.habitacion }}</td>
+            <td>
+                <a href="{% url 'editar_paciente' p.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_paciente' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <a href="{% url 'ver_signos' p.id %}" class="btn btn-info btn-sm">Ver signos</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+

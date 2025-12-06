@@ -1,0 +1,16 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Registrar signos{% endblock %}
+
+{% block content %}
+<h2 class="text-primary">Registrar signos vitales de {{ paciente.nombre }}</h2>
+
+<div class="card shadow p-4 mt-3">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-success">Registrar signos</button>
+        <a href="{% url 'ver_signos' paciente.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
