@@ -4,11 +4,13 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ========= SEGURIDAD =========
-SECRET_KEY = os.environ.setdefault("DJANGO_SETTINGS_MODULE", "agenda.settings")
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-carolina-temporal"
+)
+
 DEBUG = False
-ALLOWED_HOSTS = ["*"]
-
-
+ALLOWED_HOSTS = ["*", "carolinamontes.pythonanywhere.com", ".onrender.com"]
 
 # ========= APPS =========
 INSTALLED_APPS = [
@@ -33,21 +35,40 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# ========= STATIC FILES =========
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# ========= URLs =========
+ROOT_URLCONF = "agenda.urls"
 
-# ========= DATABASE (RAILWAY POSTGRES) =========
+# ========= TEMPLATES =========
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+# ========= WSGI =========
+WSGI_APPLICATION = "agenda.wsgi.application"
+
+# ========= DATABASE =========
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("PGDATABASE"),
-        "USER": os.environ.get("PGUSER"),
-        "PASSWORD": os.environ.get("PGPASSWORD"),
-        "HOST": os.environ.get("PGHOST"),
-        "PORT": os.environ.get("PGPORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
-# ========= STATIC FILES (WHITENOISE) =========
+# ========= STATIC =========
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
