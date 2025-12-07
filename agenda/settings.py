@@ -4,9 +4,11 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ========= SEGURIDAD =========
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ.setdefault("DJANGO_SETTINGS_MODULE", "agenda.settings")
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
+
+
 
 # ========= APPS =========
 INSTALLED_APPS = [
